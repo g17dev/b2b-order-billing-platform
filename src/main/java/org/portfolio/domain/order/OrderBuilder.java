@@ -42,14 +42,13 @@ public class OrderBuilder {
         return this;
     }
 
-    public OrderBuilder calculateTotal(List<Product> products) {
+    private BigDecimal calculateTotal(List<Product> products) {
         if (products.isEmpty()) {
             throw new IllegalArgumentException("Products cannot be empty");
         }
-        this.total = products.stream()
+        return products.stream()
                 .map(Product::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return this;
     }
 
     public Order build() {
@@ -58,7 +57,7 @@ public class OrderBuilder {
         }
         Objects.requireNonNull(customer, "Customer is required");
         Objects.requireNonNull(products, "Products are required");
-        Objects.requireNonNull(total, "Total must be calculated");
+        total = calculateTotal(products);
 
         return new Order(
             idOrder,

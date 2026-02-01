@@ -65,7 +65,6 @@ public class OrderTest {
                 .setId(1)
                 .setProducts(products)
                 .setCustomer(customer)
-                .calculateTotal(products)
                 .build();
 
         assertEquals(OrderStatus.PENDING, order.getOrderStatus());
@@ -97,7 +96,6 @@ public class OrderTest {
                 .setId(1)
                 .setProducts(products)
                 .setCustomer(customer)
-                .calculateTotal(products)
                 .build();
 
         order.updateOrder(newProducts);
@@ -122,7 +120,6 @@ public class OrderTest {
                 .setId(1)
                 .setProducts(products)
                 .setCustomer(customer)
-                .calculateTotal(products)
                 .build();
 
         order.payOrder();
@@ -141,7 +138,6 @@ public class OrderTest {
             .setId(1)
             .setProducts(products)
             .setCustomer(customer)
-            .calculateTotal(products)
             .build();
 
         order.payOrder();
@@ -156,7 +152,6 @@ public class OrderTest {
             .setId(1)
             .setProducts(products)
             .setCustomer(customer)
-            .calculateTotal(products)
             .build();
 
         order.payOrder();
@@ -175,7 +170,6 @@ public class OrderTest {
             .setId(1)
             .setProducts(products)
             .setCustomer(customer)
-            .calculateTotal(products)
             .build();
 
         order.cancelOrder();
