@@ -1,0 +1,9 @@
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/Main.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/customer/Customer.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/customer/CustomerBuilder.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/order/Order.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/order/OrderBuilder.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/order/OrderStatus.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/product/Product.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/product/ProductBuilder.java
+/Users/macuser/Workspace/Projects/Portfolio/prueba/src/main/java/org/portfolio/domain/product/ProductCategory.java
