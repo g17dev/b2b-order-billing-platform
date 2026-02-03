@@ -31,7 +31,7 @@ public class OrderTest {
             .build(),
 
         new ProductBuilder()
-                .setId(1)
+                .setId(2)
                 .setTitle("MacBook Air M1")
                 .setDescription("256GB de almacenamiento")
                 .setCategory(ProductCategory.ELECTRONICS)
@@ -40,7 +40,7 @@ public class OrderTest {
             .build(),
 
         new ProductBuilder()
-                .setId(1)
+                .setId(3)
                 .setTitle("Magic Keyboard")
                 .setDescription("Magic Keyboard with Touch ID")
                 .setCategory(ProductCategory.ELECTRONICS)
@@ -65,11 +65,24 @@ public class OrderTest {
                 .setId(1)
                 .setProducts(products)
                 .setCustomer(customer)
-                .calculateTotal(products)
                 .build();
 
         assertEquals(OrderStatus.PENDING, order.getOrderStatus());
         assertEquals(new BigDecimal("35000"), order.getTotal());
+    }
+
+    @Test
+    public void testCreateOrderWithoutProducts() {
+        List<Product> products1 = new ArrayList<>();
+        OrderBuilder order = new OrderBuilder();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+            () -> order
+                    .setId(1)
+                    .setCustomer(customer)
+                    .setProducts(products1)
+                    .build()
+        );
+        assertEquals("Products cannot be empty", exception.getMessage());
     }
 
     @Test
@@ -85,7 +98,7 @@ public class OrderTest {
                     .build(),
 
             new ProductBuilder()
-                    .setId(1)
+                    .setId(2)
                     .setTitle("MacBook Air M1")
                     .setDescription("256GB de almacenamiento")
                     .setCategory(ProductCategory.ELECTRONICS)
@@ -97,13 +110,30 @@ public class OrderTest {
                 .setId(1)
                 .setProducts(products)
                 .setCustomer(customer)
-                .calculateTotal(products)
                 .build();
 
         order.updateOrder(newProducts);
 
+        assertEquals(1, order.getIdOrder());
+        assertEquals(2, order.getProducts().size());
         assertEquals(OrderStatus.PENDING, order.getOrderStatus());
         assertEquals(new BigDecimal("33000"), order.getTotal());
+    }
+
+    @Test
+    public void testUpdateOrderWithoutProducts() {
+        List<Product> newProducts = Arrays.asList();
+        Order order = new OrderBuilder()
+                .setId(1)
+                .setProducts(products)
+                .setCustomer(customer)
+                .build();
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> order.updateOrder(newProducts)
+        );
+
+        assertEquals("Products cannot be empty", exception.getMessage());
     }
 
     @Test
@@ -122,7 +152,6 @@ public class OrderTest {
                 .setId(1)
                 .setProducts(products)
                 .setCustomer(customer)
-                .calculateTotal(products)
                 .build();
 
         order.payOrder();
@@ -141,7 +170,6 @@ public class OrderTest {
             .setId(1)
             .setProducts(products)
             .setCustomer(customer)
-            .calculateTotal(products)
             .build();
 
         order.payOrder();
@@ -156,7 +184,6 @@ public class OrderTest {
             .setId(1)
             .setProducts(products)
             .setCustomer(customer)
-            .calculateTotal(products)
             .build();
 
         order.payOrder();
@@ -175,7 +202,6 @@ public class OrderTest {
             .setId(1)
             .setProducts(products)
             .setCustomer(customer)
-            .calculateTotal(products)
             .build();
 
         order.cancelOrder();

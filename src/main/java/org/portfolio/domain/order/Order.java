@@ -35,9 +35,11 @@ public class Order {
     public Order updateOrder(List<Product> newProducts) {
         if(this.orderStatus == OrderStatus.PAID || this.orderStatus == OrderStatus.SHIPPED) {
             throw new IllegalArgumentException("Order status must be PENDING");
+        } else if (newProducts.isEmpty()) {
+            throw new IllegalArgumentException("Products cannot be empty");
         }
-        this.products.addAll(newProducts);
-        recalculateTotal(newProducts);
+        this.total = recalculateTotal(newProducts);
+        this.products = newProducts;
         return this;
     }
 
@@ -60,9 +62,13 @@ public class Order {
     }
 
     private BigDecimal recalculateTotal(List<Product> products) {
-        return this.total = products.stream()
+        BigDecimal total = products.stream()
                 .map(Product::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        if(total.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Total cannot be negative");
+        }
+        return total;
     }
 
     // Getters
