@@ -46,9 +46,13 @@ public class OrderBuilder {
         if (products.isEmpty()) {
             throw new IllegalArgumentException("Products cannot be empty");
         }
-        return products.stream()
+        BigDecimal total = products.stream()
                 .map(Product::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        if(total.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Total cannot be negative");
+        }
+        return total;
     }
 
     public Order build() {
